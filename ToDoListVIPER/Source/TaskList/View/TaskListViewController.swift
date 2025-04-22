@@ -102,8 +102,8 @@ extension TaskListViewController {
         alert.addTextField() { newTextField in
             newTextField.placeholder = placeholder
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in completion("") })
-        alert.addAction(UIAlertAction(title: "Ok", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel) { _ in completion("") })
+        alert.addAction(UIAlertAction(title: "Adicionar", style: .default) { action in
             if let textFields = alert.textFields,
                let tf = textFields.first,
                let result = tf.text {
