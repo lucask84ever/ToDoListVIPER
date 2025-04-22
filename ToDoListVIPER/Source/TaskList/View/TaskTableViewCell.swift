@@ -69,7 +69,12 @@ final class TaskTableViewCell: UITableViewCell {
         self.canBeSelected = canBeSelected
         titleLabel.text = task.title
         createAtLabel.text = "Created at: \(task.createdAt.formatted(.dateTime))"
-        completedAtLabel.text = task.completedAt == nil ? "Not completed" : "Completed at: \(task.completedAt!.formatted(.dateTime))"
+        
+        if let completedAt = task.completedAt {
+            completedAtLabel.text = "Completed at: \(completedAt.formatted(.dateTime))"
+        } else {
+            completedAtLabel.text = "Not completed"
+        }
         let imageName = task.isDone ? "checkmark.circle.fill" : "circle"
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
