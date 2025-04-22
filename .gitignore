@@ -1,1 +1,68 @@
+# MARK: - macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+*.lock
+
+# MARK: - Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/xcshareddata/**/*
+*.xcworkspace
+DerivedData/
+.idea/
+*.hmap
+*.ipa
+*.xcuserstate
+*.moved-aside
+
+# MARK: - SwiftPM
+.build/
+Package.resolved
+
+# MARK: - Carthage
+Carthage/
+
+# MARK: - CocoaPods
+Pods/
+Podfile.lock
+
+# MARK: - Fastlane
+fastlane/report.xml
+fastlane/screenshots
+fastlane/test_output
+
+# MARK: - SwiftLint / Code Coverage / Test Outputs
+swiftlint.report
+.swiftlint.yml
+*.gcda
+*.gcno
+*.gcov
+*.profdata
+*.xccoverage
+codecov.yml
+*.xcscheme
+
+# MARK: - Firebase / GoogleService files (se for privado)
+# GoogleService-Info.plist
+
+# MARK: - Environment / Build Config
+.env
+*.xcconfig
+
+# MARK: - Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# MARK: - Other
+*.orig
+,
