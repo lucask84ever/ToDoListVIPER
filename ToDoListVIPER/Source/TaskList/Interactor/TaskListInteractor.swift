@@ -9,7 +9,6 @@ import Foundation
 
 protocol TaskListInteractorInputProtocol: AnyObject {
     var presenter: (TaskListPresenterProtocol & TaskListInteractorOutputProtocol)? { get set }
-    var repository: TaskRepositoryProtocol { get set }
     var coreDataRepository: TaskRepositoryProtocol { get set }
     
     func fetchTasks()
@@ -19,11 +18,9 @@ protocol TaskListInteractorInputProtocol: AnyObject {
 
 class TaskListInteractor: TaskListInteractorInputProtocol {
     var presenter: (TaskListInteractorOutputProtocol & TaskListPresenterProtocol)?
-    var repository: TaskRepositoryProtocol
     var coreDataRepository: TaskRepositoryProtocol
     
-    init(reposity: TaskRepositoryProtocol, coreDataRepository: TaskRepositoryProtocol) {
-        self.repository = reposity
+    init(coreDataRepository: TaskRepositoryProtocol) {
         self.coreDataRepository = coreDataRepository
     }
     

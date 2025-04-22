@@ -12,5 +12,5 @@ protocol TaskListViewProtocol: AnyObject {
 }
 
 protocol TaskListRouterProtocol: AnyObject {
-    static func createModule(taskRepository: TaskRepository, coreDataRepository: CoreDataTaskRepository) -> UIViewController
+    static func createModule(coreDataRepository: CoreDataTaskRepository) -> UIViewController
 }

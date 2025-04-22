@@ -8,10 +8,10 @@
 import UIKit
 
 class CompletedTaskListRouter: TaskListRouterProtocol {
-    static func createModule(taskRepository: TaskRepository, coreDataRepository: CoreDataTaskRepository) -> UIViewController {
+    static func createModule(coreDataRepository: CoreDataTaskRepository) -> UIViewController {
         let view = CompletedTasksViewController()
         let presenter = CompletedTaskListPresenter()
-        let interactor = CompletedTaskListInteractor(repository: taskRepository, coreDataRepository: coreDataRepository)
+        let interactor = CompletedTaskListInteractor(coreDataRepository: coreDataRepository)
         let router = CompletedTaskListRouter()
         
         view.presenter = presenter

@@ -16,16 +16,6 @@ final class CoreDataTaskRepository: TaskRepositoryProtocol {
         self.context = context
     }
     
-//    func addObserver(_ observer: TaskRepositoryObserver) {
-//        observers.add(observer)
-//    }
-    
-    private func notifyObservers() {
-//        observers.allObjects.forEach {
-//            ($0 as? TaskRepositoryObserver)?.taskRepositoryDidUpdateTasks()
-//        }
-    }
-    
     func tasksFromFetch(_ fetchRequest: NSFetchRequest<TaskEntity>) -> [Task] {
         let results = (try? context.fetch(fetchRequest)) ?? []
         return results.compactMap { $0.toModel() }
@@ -36,15 +26,15 @@ final class CoreDataTaskRepository: TaskRepositoryProtocol {
     }
     
     func getCompletedTasks() -> [Task] {
-        let req: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-        req.predicate = NSPredicate(format: "isDone == true")
-        return tasksFromFetch(req)
+        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "isDone == true")
+        return tasksFromFetch(request)
     }
 
     func getPendingTasks() -> [Task] {
-        let req: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-        req.predicate = NSPredicate(format: "isDone == false")
-        return tasksFromFetch(req)
+        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "isDone == false")
+        return tasksFromFetch(request)
     }
 
     func add(_ task: Task) {
@@ -55,18 +45,16 @@ final class CoreDataTaskRepository: TaskRepositoryProtocol {
         entity.createdAt = task.createdAt
         entity.completedAt = task.completedAt
         CoreDataStack.shared.saveContext()
-        notifyObservers()
     }
 
     func toggleCompletion(for task: Task) {
-        let req: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-        req.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
+        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
         
-        if let entity = (try? context.fetch(req))?.first {
+        if let entity = (try? context.fetch(request))?.first {
             entity.isDone.toggle()
             entity.completedAt = entity.isDone ? Date() : nil
             CoreDataStack.shared.saveContext()
-            notifyObservers()
         }
     }
 }

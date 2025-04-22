@@ -15,14 +15,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let taskRepository = TaskRepository()
         let coreDataRepository = CoreDataTaskRepository()
         
-        let tasksVC = TaskListRouter.createModule(taskRepository: taskRepository, coreDataRepository: coreDataRepository)
+        let tasksVC = TaskListRouter.createModule(coreDataRepository: coreDataRepository)
         tasksVC.tabBarItem = UITabBarItem(title: "Pending", image: UIImage(systemName: "list.bullet"), tag: 0)
 
         let taskNavigation = UINavigationController(rootViewController: tasksVC)
-        let completedVC = CompletedTaskListRouter.createModule(taskRepository: taskRepository, coreDataRepository: coreDataRepository)
+        let completedVC = CompletedTaskListRouter.createModule(coreDataRepository: coreDataRepository)
         completedVC.tabBarItem = UITabBarItem(title: "Completed", image: UIImage(systemName: "checkmark.circle"), tag: 1)
         let completedNavigation = UINavigationController(rootViewController: completedVC)
         

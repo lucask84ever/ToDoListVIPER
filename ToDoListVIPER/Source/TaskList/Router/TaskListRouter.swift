@@ -8,10 +8,10 @@
 import UIKit
 
 class TaskListRouter: TaskListRouterProtocol {
-    static func createModule(taskRepository: TaskRepository, coreDataRepository: CoreDataTaskRepository) -> UIViewController {
+    static func createModule(coreDataRepository: CoreDataTaskRepository) -> UIViewController {
         let view = TaskListViewController()
         let presenter: TaskListPresenterProtocol & TaskListInteractorOutputProtocol = TaskListPresenter()
-        let interactor: TaskListInteractorInputProtocol = TaskListInteractor(reposity: taskRepository, coreDataRepository: coreDataRepository)
+        let interactor: TaskListInteractorInputProtocol = TaskListInteractor(coreDataRepository: coreDataRepository)
         let router: TaskListRouterProtocol = TaskListRouter()
 
         view.presenter = presenter
