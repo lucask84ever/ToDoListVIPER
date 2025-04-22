@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let coreDataRepository = CoreDataTaskRepository()
         
         let tasksVC = TaskListRouter.createModule(coreDataRepository: coreDataRepository)
-        tasksVC.tabBarItem = UITabBarItem(title: "Pending", image: UIImage(systemName: "list.bullet"), tag: 0)
+        tasksVC.tabBarItem = UITabBarItem(title: "Pendentes", image: UIImage(systemName: "list.bullet"), tag: 0)
 
         let taskNavigation = UINavigationController(rootViewController: tasksVC)
         let completedVC = CompletedTaskListRouter.createModule(coreDataRepository: coreDataRepository)
-        completedVC.tabBarItem = UITabBarItem(title: "Completed", image: UIImage(systemName: "checkmark.circle"), tag: 1)
+        completedVC.tabBarItem = UITabBarItem(title: "Completas", image: UIImage(systemName: "checkmark.circle"), tag: 1)
         let completedNavigation = UINavigationController(rootViewController: completedVC)
         
         let tabController = UITabBarController()

@@ -30,7 +30,6 @@ final class TaskTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .black
-        label.text = "Created at: "
         return label
     }()
     
@@ -38,7 +37,6 @@ final class TaskTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .black
-        label.text = "Not completed yet"
         return label
     }()
     
@@ -82,13 +80,15 @@ final class TaskTableViewCell: UITableViewCell {
         self.task = task
         self.canBeSelected = canBeSelected
         titleLabel.text = task.title
-        createAtLabel.text = "Created at: \(relativeFormatter.localizedString(for: task.createdAt, relativeTo: Date()))"
+        createAtLabel.text = "Criada \(relativeFormatter.localizedString(for: task.createdAt, relativeTo: Date()))"
 
         if let completedAt = task.completedAt {
             completedAtLabel.isHidden = false
-            completedAtLabel.text = "Completed at: \(relativeFormatter.localizedString(for: completedAt, relativeTo: Date()))"
+            completedAtLabel.text = "Completa \(relativeFormatter.localizedString(for: completedAt, relativeTo: Date()))"
+            checkboxButton.tintColor = .systemGreen
         } else {
             completedAtLabel.isHidden = true
+            checkboxButton.tintColor = .systemGray
         }
 
         let imageName = task.isDone ? "checkmark.circle.fill" : "circle"

@@ -36,7 +36,7 @@ final class TaskListViewController: UIViewController, TaskListViewProtocol {
     }
 
     private func setupNavigationBar() {
-        title = "Pending"
+        title = "Pendentes"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
 

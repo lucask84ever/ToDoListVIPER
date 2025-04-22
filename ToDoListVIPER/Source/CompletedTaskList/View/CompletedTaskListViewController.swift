@@ -36,7 +36,7 @@ class CompletedTasksViewController: UIViewController, TaskListViewProtocol {
     }
 
     private func setupNavigationBar() {
-        title = "Completed"
+        title = "Completas"
     }
     
     private func setupTableView() {
