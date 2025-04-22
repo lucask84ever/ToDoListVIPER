@@ -49,6 +49,20 @@ final class TaskTableViewCell: UITableViewCell {
         return button
     }()
     
+    private let datesStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 4
+        stack.alignment = .leading
+        return stack
+    }()
+    
+    private let relativeFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter
+    }()
+    
     private var task: Task?
     var checkboxTapped: (() -> Void)?
 
@@ -68,13 +82,15 @@ final class TaskTableViewCell: UITableViewCell {
         self.task = task
         self.canBeSelected = canBeSelected
         titleLabel.text = task.title
-        createAtLabel.text = "Created at: \(task.createdAt.formatted(.dateTime))"
-        
+        createAtLabel.text = "Created at: \(relativeFormatter.localizedString(for: task.createdAt, relativeTo: Date()))"
+
         if let completedAt = task.completedAt {
-            completedAtLabel.text = "Completed at: \(completedAt.formatted(.dateTime))"
+            completedAtLabel.isHidden = false
+            completedAtLabel.text = "Completed at: \(relativeFormatter.localizedString(for: completedAt, relativeTo: Date()))"
         } else {
-            completedAtLabel.text = "Not completed"
+            completedAtLabel.isHidden = true
         }
+
         let imageName = task.isDone ? "checkmark.circle.fill" : "circle"
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
@@ -97,14 +113,17 @@ final class TaskTableViewCell: UITableViewCell {
     }
 }
 
-private extension TaskTableViewCell {
-    func setupView() {
+extension TaskTableViewCell: ViewCoding {
+    func setupHierarchy() {
         contentView.addSubview(cardView)
         cardView.addSubview(titleLabel)
         cardView.addSubview(checkboxButton)
-        cardView.addSubview(createAtLabel)
-        cardView.addSubview(completedAtLabel)
-        
+        cardView.addSubview(datesStackView)
+        datesStackView.addArrangedSubview(createAtLabel)
+        datesStackView.addArrangedSubview(completedAtLabel)
+    }
+    
+    func setupConstraints() {
         cardView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -122,17 +141,22 @@ private extension TaskTableViewCell {
             $0.top.equalToSuperview().inset(12)
         }
         
-        createAtLabel.snp.makeConstraints {
+        datesStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(12)
             $0.trailing.equalTo(checkboxButton.snp.leading).offset(-12)
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.bottom.lessThanOrEqualToSuperview().inset(12)
         }
-        
-        completedAtLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(12)
-            $0.trailing.equalTo(checkboxButton.snp.leading).offset(-12)
-            $0.top.equalTo(createAtLabel.snp.bottom).offset(8)
-            $0.bottom.equalToSuperview().inset(12)
-        }
+    }
+    
+    func setupAdditionalConfiguration() {
+        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.textColor = .black
+
+        createAtLabel.font = .systemFont(ofSize: 12)
+        createAtLabel.textColor = .darkGray
+
+        completedAtLabel.font = .systemFont(ofSize: 12)
+        completedAtLabel.textColor = .gray
     }
 }

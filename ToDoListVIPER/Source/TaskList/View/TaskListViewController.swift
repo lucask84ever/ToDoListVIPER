@@ -54,6 +54,8 @@ final class TaskListViewController: UIViewController, TaskListViewProtocol {
     private func setupTableView() {
         taskListTableView.dataSource = self
         taskListTableView.delegate = self
+        taskListTableView.rowHeight = UITableView.automaticDimension
+        taskListTableView.estimatedRowHeight = 120
         taskListTableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
     }
 
@@ -63,11 +65,7 @@ final class TaskListViewController: UIViewController, TaskListViewProtocol {
     }
 }
 
-extension TaskListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(114)
-    }
-}
+extension TaskListViewController: UITableViewDelegate { }
 
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
