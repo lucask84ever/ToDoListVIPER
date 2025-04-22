@@ -28,12 +28,14 @@ final class CoreDataTaskRepository: TaskRepositoryProtocol {
     func getCompletedTasks() -> [Task] {
         let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
         request.predicate = NSPredicate(format: "isDone == true")
+        request.sortDescriptors = [NSSortDescriptor(key: "completedAt", ascending: true)]
         return tasksFromFetch(request)
     }
 
     func getPendingTasks() -> [Task] {
         let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
         request.predicate = NSPredicate(format: "isDone == false")
+        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
         return tasksFromFetch(request)
     }
 
