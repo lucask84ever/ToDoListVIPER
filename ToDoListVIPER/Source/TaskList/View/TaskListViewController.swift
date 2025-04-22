@@ -118,7 +118,7 @@ extension TaskListViewController {
     
     private func showTaskCompletedToast() {
         let label = UILabel()
-        label.text = "Task Done!"
+        label.text = "Tarefa completada"
         label.textAlignment = .center
         label.backgroundColor = .systemGreen
         label.textColor = .white
